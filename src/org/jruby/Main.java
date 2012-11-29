@@ -230,6 +230,8 @@ public class Main {
         return internalRun();
     }
 
+    private static Ruby savedRuntime;
+
     private Status internalRun() {
         doShowVersion();
         doShowCopyright();
@@ -242,10 +244,20 @@ public class Main {
 
         InputStream in   = config.getScriptSource();
         String filename  = config.displayedFileName();
-        
+
         doProcessArguments(in);
-        
-        Ruby runtime     = Ruby.newInstance(config);
+
+        Ruby runtime;
+
+        if (savedRuntime == null) {
+            System.err.println("caching runtime...");
+            savedRuntime = Ruby.newInstance(config);
+            return new Status();
+        } else {
+            System.err.println("using cached runtime...");
+            runtime = savedRuntime;
+            savedRuntime = null;
+        }
 
         try {
             doSetContextClassLoader(runtime);
