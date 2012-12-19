@@ -8,6 +8,8 @@ import java.io.IOException;
 
 /**
  * Initialization class for the "drip" launcher, to help pre-warm JRuby.
+ *
+ * DRIP_INIT needs to match the command line, for now.
  */
 public class DripMain {
     private static void warmUpParser()
