@@ -377,7 +377,7 @@ public class UnmarshalStream extends InputStream {
             if (i == 0) { // first ivar
                 if (runtime.is1_9()
                         && (object instanceof RubyString || object instanceof RubyRegexp)
-                        && count >= 1) { // 1.9 string encoding
+                        && count > 1) { // 1.9 string encoding
                     EncodingCapable strObj = (EncodingCapable)object;
 
                     if (key.asJavaString().equals(MarshalStream.SYMBOL_ENCODING_SPECIAL)) {
